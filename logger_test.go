@@ -7,7 +7,8 @@ import (
 )
 
 func init() {
-	l := log.New(os.Stdout, "[xxx]: ", log.Ldate|log.Lmicroseconds|log.Llongfile)
+	// l := log.New(os.Stdout, "[xxxx]: ", log.Ldate|log.Lmicroseconds|log.Llongfile)
+	l := log.New(os.Stdout, "[xxxx]: ", log.LstdFlags)
 	LoadLogger(l, LvDebug)
 }
 
