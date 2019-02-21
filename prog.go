@@ -8,16 +8,32 @@ import (
 	"github.com/joho/godotenv"
 )
 
+var (
+	// DevMode define the default logger level
+	// Enable In Linux:
+	//     export SAKURA_GK_DEV=true
+	DevMode = false
+)
+
 // Init App
-func Init(name string) {
+func Init(name string, envFile ...string) {
+	// Init Env
+	if len(envFile) > 0 {
+		err := godotenv.Load(envFile...)
+		if err != nil {
+			Er(err)
+		}
+	}
+
 	// Init Log
 	l := log.New(os.Stdout, "["+name+"]: ", log.LstdFlags)
-	LoadLogger(l, LvDebug)
-
-	// Init Env
-	err := godotenv.Load()
-	if err != nil {
-		Er(err)
+	if os.Getenv("SAKURA_GK_DEV") == "true" {
+		DevMode = true
+	}
+	if DevMode {
+		LoadLogger(l, LvDebug)
+	} else {
+		LoadLogger(l, LvInfo)
 	}
 }
 

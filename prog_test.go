@@ -14,7 +14,7 @@ const (
 )
 
 func TestInit(t *testing.T) {
-	Init("test")
+	Init("test", ".env")
 	Log(LInfo, "init success")
 	lv := os.Getenv(EnvText)
 	if lv != EnvLogLevel {
